@@ -33,7 +33,9 @@ Derrière le spectacle, une question demeure : les langages de programmation von
 
 </div>
 
-Note: Le résumé officiel de l'exposé, tel qu'annoncé dans le programme de la Semaine de l'IA 2026. Slide non comptée dans la numérotation (data-visibility="uncounted") pour ne pas décaler les repères de TIMELINE.md et de chrono.html.
+<p class="smallest" style="margin-top: 0.5em">▶ Vidéo de l'exposé : <a href="https://www.youtube.com/watch?v=Aj5arTQzMQ4&t=822s">youtube.com/watch?v=Aj5arTQzMQ4</a></p>
+
+Note: Le résumé officiel de l'exposé, tel qu'annoncé dans le programme de la Semaine de l'IA 2026, et le lien vers l'enregistrement vidéo (https://www.youtube.com/watch?v=Aj5arTQzMQ4&t=822s). Slide non comptée dans la numérotation (data-visibility="uncounted") pour ne pas décaler les repères de TIMELINE.md et de chrono.html.
 
 ---
 
@@ -1560,9 +1562,9 @@ Qui « programme » aujourd'hui ?
 - Débutants, hobbyistes, **enfants** 🧒
 - Étudiants, dans toutes les disciplines 🎓
 
-<p class="smallest" style="margin-top: 0.6em">D'après « Who Codes When AI Can Generate Code? », séminaire SOTELO, 4 juin 2025 · <a href="https://www.youtube.com/watch?v=Aj5arTQzMQ4&t=822s">youtube.com/watch?v=Aj5arTQzMQ4</a></p>
+<p class="smallest" style="margin-top: 0.6em">D'après « Who Codes When AI Can Generate Code? », séminaire SOTELO, 4 juin 2025</p>
 
-Note: Reprise du panorama « Who Codes When AI Can Generate Code? Impacts of Generative AI on Professional Developers, End Users, and Researchers » (séminaire SOTELO « De l'impact de l'IA-générative sur le génie logiciel », 4 juin 2025, vidéo : https://www.youtube.com/watch?v=Aj5arTQzMQ4&t=822s). Chaque contexte a ses exigences : le prototype jetable du dimanche et le système de paie n'ont pas les mêmes règles.
+Note: Reprise du panorama « Who Codes When AI Can Generate Code? Impacts of Generative AI on Professional Developers, End Users, and Researchers » (séminaire SOTELO « De l'impact de l'IA-générative sur le génie logiciel », 4 juin 2025). Chaque contexte a ses exigences : le prototype jetable du dimanche et le système de paie n'ont pas les mêmes règles.
 
 ---
 
@@ -1763,7 +1765,7 @@ Note: On a 30 minutes de questions : laisser la slide Références affichée, to
 - Viennot, Baudart, Gallego Arias, Lelarge, « MiniF2F in Rocq: Automatic Translation Between Proof Assistants », 2025
 
 **Panoramas et patrimoine**
-- Acher, « Who Codes When AI Can Generate Code? », séminaire SOTELO, 4 juin 2025 · youtube.com/watch?v=Aj5arTQzMQ4
+- Acher, « Who Codes When AI Can Generate Code? », séminaire SOTELO, 4 juin 2025
 - Hou et al., « Large Language Models for Software Engineering: A Systematic Literature Review », ACM TOSEM 2024
 - Robbes, Matricon, Degueule, Hora, Zacchiroli, « Agentic Very Much! Adoption of Coding Agent in New GitHub Projects », 2026
 - Desmazières, Di Cosmo, Lorentz, « 50 Years of Programming Language Evolution through the Software Heritage Looking Glass », MSR 2025

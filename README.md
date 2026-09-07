@@ -5,6 +5,8 @@ Talk de Mathieu Acher (INSA Rennes), slides reveal.js en Markdown.
 **🌐 En ligne (auto-contenu, vidéos comprises) : https://blog.mathieuacher.com/languages-codingagents-semaineIA2026/**
 (version longue : https://blog.mathieuacher.com/languages-codingagents-semaineIA2026/long.html)
 
+**▶ Vidéo de l'exposé : https://www.youtube.com/watch?v=Aj5arTQzMQ4&t=822s**
+
 Vendredi 4 septembre 2026 · Semaine de l'IA · Université de Rennes ·
 https://intelligence-artificielle.univ-rennes.fr/semaine-ia-2026
 
@@ -117,16 +119,12 @@ La version longue (`long.html`) suit la même structure avec les slides de déta
 - https://blog.mathieuacher.com/TeXCCChessEngine/ (TeXCCChess ; vidéos : https://youtu.be/ngHMozcyfeY Overleaf, https://youtu.be/Tg4r_bu0ANY local)
 - https://blog.mathieuacher.com/PL-ultimate-llm/ (PL Catalog — SWH & CodeCommons)
 - https://arxiv.org/abs/2606.13763 (Acher & Jézéquel, moteurs d'échecs polyglottes)
-- Papier COBOL : `../cobol-meta-analysis/draft/paper.pdf` (Acher, Kebaili, Khelladi, Espinasse).
-  Le « compresseur livré 100 % en C, exclu du corpus » (slide évasion COBOL) y figure : section corpus
-  (« One compression attempt (cobol-compress-cc) was excluded because its deliverable is C, not COBOL »),
-  paragraphe « COBPACK C-first vs COBOL-first » (RQ1, 1 123 LoC de C) et section « evasion »
+- Papier COBOL : `../cobol-meta-analysis/draft/paper.pdf` (Acher, Kebaili, Khelladi, Espinasse)
 - https://github.com/acherm/agentic-arnoldc (triple interpréteur ArnoldC → MnM → Brainfuck)
 - « ChatGPT rêve-t-il de cavaliers électriques ? » — Monsieur Phi, https://www.youtube.com/watch?v=6D1XIbkm4JE (mentionnée slide 21)
 - « Who Codes When AI Can Generate Code? Impacts of Generative AI on Professional Developers, End Users,
   and Researchers », exposé de Mathieu Acher au séminaire SOTELO « De l'impact de l'IA-générative sur le
-  génie logiciel », 4 juin 2025 — vidéo : https://www.youtube.com/watch?v=Aj5arTQzMQ4&t=822s
-  (repris slide « Et il n'y a pas UN contexte, mais mille » et dans les Références)
+  génie logiciel », 4 juin 2025 (repris slide « Et il n'y a pas UN contexte, mais mille » et dans les Références)
 
 ## À vérifier / personnaliser avant le jour J
 
