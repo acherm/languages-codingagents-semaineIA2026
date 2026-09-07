@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%E2%8F%B1%EF%B8%8F</text></svg>">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Chrono COBOL &amp; M&amp;M's</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@600;700&display=swap">
+<style>
+  :root {
+    --paper: #f7f5f0;
+    --surface: #ffffff;
+    --surface-2: #efece4;
+    --ink: #1c1b18;
+    --ink-2: #57544c;
+    --ink-3: #85817652;
+    --rule: #ddd8cc;
+    --gold: #9a6b06;
+    --gold-bg: #f6e9c9;
+    --blue: #0d3b66;
+    --blue-bg: #dde7f1;
+    --late: #a3301c;
+    --early: #2f6b3a;
+    --shadow: 0 1px 2px rgba(28,27,24,.06), 0 8px 24px rgba(28,27,24,.05);
+    --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #131418;
+      --surface: #1b1d23;
+      --surface-2: #22252c;
+      --ink: #eceae4;
+      --ink-2: #a3a196;
+      --ink-3: #6d6a5f66;
+      --rule: #2f323a;
+      --gold: #ffc857;
+      --gold-bg: #3a2f14;
+      --blue: #9cc4e8;
+      --blue-bg: #16283a;
+      --late: #f08a72;
+      --early: #7fc48c;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #131418;
+    --surface: #1b1d23;
+    --surface-2: #22252c;
+    --ink: #eceae4;
+    --ink-2: #a3a196;
+    --ink-3: #6d6a5f66;
+    --rule: #2f323a;
+    --gold: #ffc857;
+    --gold-bg: #3a2f14;
+    --blue: #9cc4e8;
+    --blue-bg: #16283a;
+    --late: #f08a72;
+    --early: #7fc48c;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px 72px; }
+
+  /* ---------- masthead ---------- */
+  header.mast { padding: 30px 0 18px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    letter-spacing: .13em; text-transform: uppercase; color: var(--ink-2);
+    display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline;
+  }
+  .eyebrow b { color: var(--gold); font-weight: 600; }
+  h1 {
+    font-family: var(--serif); font-weight: 700; font-size: 27px;
+    line-height: 1.2; margin: 10px 0 4px; text-wrap: balance; letter-spacing: -.01em;
+  }
+  .sub { color: var(--ink-2); font-size: 14px; margin: 0; max-width: 62ch; }
+
+  /* ---------- console ---------- */
+  .console {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 12px; box-shadow: var(--shadow);
+    margin: 20px 0 26px; overflow: hidden;
+  }
+  .console-main {
+    display: grid; grid-template-columns: minmax(0,auto) 1fr; gap: 4px 22px;
+    align-items: center; padding: 14px 16px 12px;
+  }
+  .clock {
+    font-family: var(--mono); font-weight: 600; font-size: 40px;
+    line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .clock.idle { color: var(--ink-2); }
+  .now-label {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .13em;
+    text-transform: uppercase; color: var(--ink-2); margin-bottom: 3px;
+  }
+  .now-block { font-family: var(--serif); font-weight: 600; font-size: 19px; line-height: 1.25; }
+  .now-meta { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .now-meta .drift { font-weight: 600; font-family: var(--mono); }
+  .drift.is-late { color: var(--late); }
+  .drift.is-early { color: var(--early); }
+
+  .bar { height: 5px; background: var(--surface-2); position: relative; }
+  .bar-fill { height: 100%; width: 0; background: var(--gold); transition: width .6s linear; }
+  .bar-tick { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+  .bar-tick.hour { background: var(--ink-2); width: 2px; }
+
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    padding: 11px 16px; border-top: 1px solid var(--rule); background: var(--surface-2);
+  }
+  button {
+    font-family: var(--sans); font-size: 13px; font-weight: 500; color: var(--ink);
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 7px;
+    padding: 6px 13px; cursor: pointer;
+  }
+  button:hover { border-color: var(--gold); }
+  button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  button.primary { background: var(--gold); border-color: var(--gold); color: var(--paper); font-weight: 600; }
+  :root[data-theme="dark"] button.primary, :root:not([data-theme="light"]) button.primary { color: #131418; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) button.primary { color: #fffdf7; } }
+  .hint { font-size: 12.5px; color: var(--ink-2); margin-left: auto; }
+
+  /* ---------- run sheet ---------- */
+  h2 {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2);
+    margin: 38px 0 14px; padding-bottom: 7px; border-bottom: 1px solid var(--rule);
+  }
+  .sheet { display: flex; flex-direction: column; }
+  .block {
+    display: grid; grid-template-columns: 62px 1fr; gap: 0 16px;
+    padding: 15px 0; border-top: 1px solid var(--rule); position: relative;
+  }
+  .block:first-child { border-top: none; }
+  .block.is-now { background: linear-gradient(90deg, var(--gold-bg), transparent 70%); }
+  .block.is-now::before {
+    content: ""; position: absolute; left: -12px; top: 0; bottom: 0;
+    width: 3px; background: var(--gold); border-radius: 2px;
+  }
+  .block.is-done .b-title, .block.is-done .b-slides { opacity: .5; }
+  .tcode {
+    font-family: var(--mono); font-weight: 600; font-size: 17px; color: var(--gold);
+    font-variant-numeric: tabular-nums; padding-top: 1px;
+  }
+  .tdur {
+    font-family: var(--mono); font-size: 11.5px; color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+  }
+  .b-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+  .b-title { font-family: var(--serif); font-weight: 600; font-size: 18px; line-height: 1.25; }
+  .b-slides {
+    font-family: var(--mono); font-size: 11.5px; color: var(--blue);
+    background: var(--blue-bg); padding: 1px 7px; border-radius: 4px; white-space: nowrap;
+  }
+  .b-body { margin-top: 6px; }
+  ul.steps { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+  ul.steps li {
+    display: grid; grid-template-columns: 52px 1fr; gap: 10px;
+    font-size: 13.5px; color: var(--ink-2);
+  }
+  ul.steps span {
+    font-family: var(--mono); font-size: 11.5px; color: var(--ink);
+    font-variant-numeric: tabular-nums; padding-top: 1.5px;
+  }
+  .warn {
+    margin-top: 9px; padding: 9px 12px; border-left: 2px solid var(--late);
+    background: var(--surface-2); border-radius: 0 6px 6px 0;
+    font-size: 13.5px; color: var(--ink);
+  }
+  .warn b { color: var(--late); }
+  .keep { font-size: 13.5px; color: var(--ink-2); margin-top: 8px; }
+  .keep b { color: var(--ink); font-weight: 600; }
+  .here {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em;
+    text-transform: uppercase; padding: 3px 8px; margin-top: 9px;
+    align-self: start; justify-self: start;
+  }
+  .block .here { grid-column: 2; }
+
+  /* ---------- tables & lists ---------- */
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { text-align: left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2);
+  }
+  td.sl { font-family: var(--mono); color: var(--blue); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  ol.cuts { margin: 0; padding-left: 1.15em; display: flex; flex-direction: column; gap: 7px; font-size: 14px; }
+  ol.cuts b { font-weight: 600; }
+  ul.check { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  ul.check li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; font-size: 14px; padding: 6px 0; border-bottom: 1px solid var(--rule); }
+  ul.check li:last-child { border-bottom: none; }
+  ul.check input { margin: 4px 0 0; accent-color: var(--gold); width: 14px; height: 14px; }
+  kbd {
+    font-family: var(--mono); font-size: 11px; background: var(--surface-2);
+    border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px;
+  }
+  .note { font-size: 13.5px; color: var(--ink-2); }
+  footer { margin-top: 44px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 12.5px; color: var(--ink-2); }
+
+  @media (max-width: 560px) {
+    .console-main { grid-template-columns: 1fr; gap: 8px; padding: 12px 14px 10px; }
+    .clock { font-size: 34px; }
+    .block { grid-template-columns: 54px 1fr; gap: 0 12px; }
+    .block .here { grid-column: 1 / -1; }
+    ul.steps li { grid-template-columns: 46px 1fr; gap: 8px; }
+    .hint { margin-left: 0; width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow"><b>Vendredi 4 septembre</b> · Semaine de l'IA, Université de Rennes · 60 min + 30 min · 81 slides + 36 de backup</p>
+  <h1>Langages de programmation à l'ère de l'IA générative</h1>
+  <p class="sub">Feuille de conduite. Le chrono ci-dessous suit le minutage prévu et met en évidence le bloc où tu devrais être. Touche <kbd>S</kbd> pour la vue présentateur, <kbd>O</kbd> pour la vue d'ensemble, <kbd>B</kbd> pour l'écran noir.</p>
+</header>
+
+<section class="console" aria-label="Chronomètre">
+  <div class="console-main">
+    <div class="clock idle" id="clock">T+00:00</div>
+    <div>
+      <p class="now-label" id="nowLabel">Tu devrais être sur</p>
+      <p class="now-block" id="nowBlock">Titre + au programme</p>
+      <p class="now-meta" id="nowMeta">Chrono à l'arrêt. Lance-le en montant sur scène.</p>
+    </div>
+  </div>
+  <div class="bar" id="bar"><div class="bar-fill" id="barFill"></div></div>
+  <div class="controls">
+    <button class="primary" id="btnStart">Démarrer</button>
+    <button id="btnPause">Pause</button>
+    <button id="btnReset">Remettre à zéro</button>
+    <span class="hint">Touche un bloc pour dire « j'y suis » et voir ton avance ou ton retard.</span>
+  </div>
+</section>
+
+<h2>La conduite, bloc par bloc</h2>
+<div class="sheet" id="sheet"></div>
+
+<h2>Si tu débordes — dans cet ordre</h2>
+<ol class="cuts">
+  <li><b>La durée des vidéos.</b> Six moments vidéo, cinq minutes cumulées si tout tourne en entier. Les couper à vingt ou trente secondes rend deux à trois minutes sans rien retirer au propos.</li>
+  <li><b>Échecs 26 et 29</b>, puis <b>ésotériques 40</b> (le prix de l'absence d'indexation) et <b>48</b> (deux surprises inattendues).</li>
+  <li><b>COBOL 55</b> (les autres pièces du corpus) et <b>57</b> (l'illusion du template).</li>
+  <li><b>Synthèse 65 et 67</b> : le message tient dans 64 et 66.</li>
+</ol>
+<p class="keep">Ne sacrifie jamais les trois bilans (<b>14, 34, 49, 61</b>), la slide <b>66</b> sur le fossé, ni la slide <b>78</b> qui porte la réponse. Ce sont les points d'ancrage de l'argument.</p>
+<p class="note">Si tu es en avance, rapatrie depuis le backup : « Le chiffre qui change tout » (87), « Où part cet argent ? » (92), « Archéologie d'un bug » (95), « La triche COBOL » (107).</p>
+
+<h2>Les trente minutes de questions</h2>
+<p class="note">Slide Références affichée, backup accessible par <kbd>O</kbd>.</p>
+<div class="scroll">
+<table>
+  <thead><tr><th>Question probable</th><th>Slides de backup</th></tr></thead>
+  <tbody>
+    <tr><td>« Ce ne sont que des jouets, non ? »</td><td class="sl">103 · 113 · 114</td></tr>
+    <tr><td>« Combien ça coûte vraiment ? »</td><td class="sl">87 · 92 · 113 · 114</td></tr>
+    <tr><td>« Et la fiabilité, les tests ? »</td><td class="sl">88 · 89 · 93 · 118</td></tr>
+    <tr><td>« Le français va-t-il remplacer le code ? »</td><td class="sl">110 · 111 · 112</td></tr>
+    <tr><td>« Et les métiers, l'emploi ? »</td><td class="sl">106 · 108 · 109</td></tr>
+    <tr><td>« COBOL en vrai, en production ? »</td><td class="sl">104 · 107 · 116</td></tr>
+    <tr><td>« Les langages ésotériques, ça prouve quoi ? »</td><td class="sl">94 · 97 · 117</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Check-list du matin</h2>
+<ul class="check" id="check"></ul>
+
+<footer>
+  Le même minutage est dans <code>TIMELINE.md</code> à la racine du dépôt, et les repères ⏱ T+xx sont recopiés en tête des notes du présentateur des slides charnières.
+</footer>
+
+</div>
+
+<script>
+const BLOCKS = [
+  { t: 0, dur: 2, title: "Titre + au programme", slides: "1–2",
+    body: "Poser la question de fond dès la slide 2 et annoncer qu'on y répondra avec des données.",
+    keep: "Le premier jeu doit être à l'écran à T+3." },
+
+  { t: 2, dur: 8, title: "1. Programmer en français", slides: "3–14",
+    steps: [["T+2", "Les démos : ASHFALL, FIFAcher, le neveu"],
+            ["T+6", "Le prompt, la console, sous le capot"],
+            ["T+8", "La bascule fin 2025, ce qui rate, bilan n°0"]],
+    warn: "<b>Quatre vidéos ici</b>, deux minutes et demie cumulées si elles tournent en entier. Coupe chacune après vingt à vingt-cinq secondes : le point est fait bien avant la fin. ASHFALL dure 44 s, FIFAcher 47 s, le neveu 33 s, la console 24 s." },
+
+  { t: 10, dur: 5, title: "Le questionnement", slides: "15–17",
+    body: "Trois slides pour cinq minutes : le paradoxe (le langage disparaît de l'interface, il prolifère dans l'implémentation), la carte des compromis entre langages, la feuille de route des trois terrains.",
+    keep: "C'est le bloc respirable. Si tu as pris du retard sur les démos, c'est le seul endroit où le rattraper sans rien perdre." },
+
+  { t: 15, dur: 10, title: "2. Échecs polyglottes", slides: "18–35",
+    steps: [["T+15", "Pourquoi les échecs, le prompt dirigé par le but, les 17 langages"],
+            ["T+18", "Vraiment polyglottes, Overleaf, ce n'est pas de la copie, le plafond"],
+            ["T+21", "Portage, coût, oracles, surestimation, triche"],
+            ["T+24", "Bilan n°1 et transition Brainfuck"]],
+    warn: "<b>Le bloc le plus dense de l'exposé</b> : dix-huit slides en dix minutes, soit une demi-minute chacune, vidéos comprises. La vidéo Overleaf dure 1 min 38 et celle de ChatGPT 59 s. Lance-les, commente par-dessus, coupe à trente secondes. À sacrifier en premier : « Même algorithme, idiomes différents » (26) et « Pourquoi le langage pèse-t-il sur la force ? » (29)." },
+
+  { t: 25, dur: 10, title: "3. Langages ésotériques", slides: "36–49",
+    steps: [["T+25", "Le défi Brainfuck, BFChess, l'usine, les résultats, EsoLang-Bench"],
+            ["T+29", "MnM Lang et l'interpréteur Brainfuck en M&M's"],
+            ["T+32", "ArnoldC, le triple interpréteur, les deux surprises"],
+            ["T+34", "Bilan n°2"]],
+    keep: "Le moment le plus spectaculaire. Laisse respirer le triple interpréteur (47) : c'est l'image que la salle retiendra." },
+
+  { t: 35, dur: 10, title: "4. COBOL", slides: "50–61",
+    steps: [["T+35", "La littérature, l'étude, DOOM en COBOL"],
+            ["T+38", "Le résultat le plus fou, le corpus, l'agent qui compile, l'illusion du template"],
+            ["T+42", "Le fossé frontière, « le programme fonctionne correctement », les perspectives"],
+            ["T+44", "Bilan n°3"]] },
+
+  { t: 45, dur: 5, title: "5. Synthèse", slides: "62–67",
+    body: "Six slides, rythme régulier.",
+    keep: "Les deux à ne pas bâcler : « Trois terrains, les mêmes lois » (64) et « Soyons lucides : le fossé est là » (66)." },
+
+  { t: 50, dur: 8, title: "6. Et maintenant ?", slides: "68–78",
+    steps: [["T+50", "Les trois hypothèses, H1 en deux temps, du neveu aux scientifiques"],
+            ["T+53", "H2, les maths formelles, H3, retour aux 14 000+ langages"],
+            ["T+56", "Qu'enseigner, et la réponse à la question d'ouverture"]],
+    keep: "La slide 78 est la chute. Arrive dessus à T+56 au plus tard pour la poser sans courir." },
+
+  { t: 58, dur: 2, title: "Sortie", slides: "79–81",
+    body: "Mosaïque de récap, Merci, puis Références, que tu laisses affichée pendant les questions." },
+
+  { t: 60, dur: 30, title: "Questions", slides: "backup 82–118",
+    body: "Trente minutes. Les slides de backup sont en réserve, accessibles en vue d'ensemble." }
+];
+
+const CHECKS = [
+  "Lancer <code>python3 serve.py</code>, ouvrir localhost:8000, vérifier que les six vidéos démarrent",
+  "Vue présentateur <kbd>S</kbd> sur l'écran de contrôle, chrono lancé à la slide 1",
+  "Plein écran <kbd>F</kbd>. Deux vidéos ont du son : FIFAcher mobile (slide 7) et le neveu (slide 8). Vérifier que le son sort en salle",
+  "Ce sont aussi les deux seules non muettes, donc les seules que le navigateur peut refuser de lancer seul. Si l'une reste figée, clique sur play",
+  "Export PDF de secours : localhost:8000/?print-pdf, puis imprimer en PDF",
+  "Démo live optionnelle : blog.mathieuacher.com/ashfall et /fifacher, si le réseau tient"
+];
+
+const TOTAL = 90; // minutes, exposé + questions
+const sheet = document.getElementById('sheet');
+
+BLOCKS.forEach((b, i) => {
+  const el = document.createElement('div');
+  el.className = 'block';
+  el.dataset.i = i;
+  const steps = b.steps ? '<ul class="steps">' + b.steps.map(s =>
+    `<li><span>${s[0]}</span>${s[1]}</li>`).join('') + '</ul>' : '';
+  el.innerHTML =
+    `<div><div class="tcode">T+${b.t}</div><div class="tdur">${b.dur} min</div></div>` +
+    `<div><div class="b-head"><span class="b-title">${b.title}</span>` +
+    `<span class="b-slides">slides ${b.slides}</span></div>` +
+    `<div class="b-body">${b.body ? `<div class="note">${b.body}</div>` : ''}${steps}` +
+    `${b.warn ? `<div class="warn">${b.warn}</div>` : ''}` +
+    `${b.keep ? `<div class="keep">${b.keep}</div>` : ''}</div></div>` +
+    `<button class="here" data-here="${i}">J'y suis</button>`;
+  sheet.appendChild(el);
+});
+
+const check = document.getElementById('check');
+CHECKS.forEach((c, i) => {
+  const li = document.createElement('li');
+  li.innerHTML = `<input type="checkbox" id="c${i}"><label for="c${i}">${c}</label>`;
+  check.appendChild(li);
+});
+
+// timeline ticks on the progress bar
+const bar = document.getElementById('bar');
+BLOCKS.slice(1).forEach(b => {
+  const tick = document.createElement('div');
+  tick.className = 'bar-tick' + (b.t === 60 ? ' hour' : '');
+  tick.style.left = (b.t / TOTAL * 100) + '%';
+  bar.appendChild(tick);
+});
+
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+
+let startedAt = Number(store.get('talk.start')) || 0;
+let frozen = store.get('talk.frozen') !== null ? Number(store.get('talk.frozen')) : null;
+
+const clock = document.getElementById('clock');
+const nowLabel = document.getElementById('nowLabel');
+const nowBlock = document.getElementById('nowBlock');
+const nowMeta = document.getElementById('nowMeta');
+const barFill = document.getElementById('barFill');
+
+function elapsedSec() {
+  if (frozen !== null) return frozen;
+  if (!startedAt) return 0;
+  return Math.max(0, (Date.now() - startedAt) / 1000);
+}
+
+function blockAt(min) {
+  for (let i = BLOCKS.length - 1; i >= 0; i--) if (min >= BLOCKS[i].t) return i;
+  return 0;
+}
+
+function pad(n) { return String(Math.floor(n)).padStart(2, '0'); }
+
+function render() {
+  const s = elapsedSec();
+  const min = s / 60;
+  clock.textContent = `T+${pad(min)}:${pad(s % 60)}`;
+  clock.classList.toggle('idle', !startedAt);
+
+  const i = blockAt(min);
+  const b = BLOCKS[i];
+  nowBlock.textContent = b.title;
+
+  if (!startedAt) {
+    nowMeta.textContent = "Chrono à l'arrêt. Lance-le en montant sur scène.";
+  } else {
+    const left = (b.t + b.dur) - min;
+    const over = left < 0;
+    nowMeta.innerHTML = over
+      ? `Bloc dépassé de <span class="drift is-late">${Math.abs(left).toFixed(1)} min</span> · slides ${b.slides}`
+      : `Il reste <b>${left.toFixed(1)} min</b> sur ce bloc · slides ${b.slides}`
+        + (frozen !== null ? ' · <b>en pause</b>' : '');
+  }
+
+  barFill.style.width = Math.min(100, min / TOTAL * 100) + '%';
+
+  document.querySelectorAll('.block').forEach(el => {
+    const k = Number(el.dataset.i);
+    el.classList.toggle('is-now', !!startedAt && k === i);
+    el.classList.toggle('is-done', !!startedAt && k < i);
+  });
+}
+
+document.getElementById('btnStart').addEventListener('click', () => {
+  if (frozen !== null) { startedAt = Date.now() - frozen * 1000; frozen = null; store.del('talk.frozen'); }
+  else if (!startedAt) { startedAt = Date.now(); }
+  store.set('talk.start', startedAt);
+  render();
+});
+document.getElementById('btnPause').addEventListener('click', () => {
+  if (startedAt && frozen === null) { frozen = elapsedSec(); store.set('talk.frozen', frozen); render(); }
+});
+document.getElementById('btnReset').addEventListener('click', () => {
+  startedAt = 0; frozen = null; store.del('talk.start'); store.del('talk.frozen');
+  nowLabel.textContent = 'Tu devrais être sur';
+  render();
+});
+
+document.addEventListener('click', e => {
+  const btn = e.target.closest('[data-here]');
+  if (!btn) return;
+  const b = BLOCKS[Number(btn.dataset.here)];
+  if (!startedAt) { nowLabel.textContent = 'Démarre le chrono pour mesurer ton écart'; return; }
+  const drift = elapsedSec() / 60 - b.t;
+  const cls = drift > 0.5 ? 'is-late' : (drift < -0.5 ? 'is-early' : '');
+  const word = drift > 0.5 ? 'de retard' : (drift < -0.5 ? "d'avance" : '— pile à l\'heure');
+  nowLabel.innerHTML = `Sur « ${b.title} » : <span class="drift ${cls}">`
+    + (Math.abs(drift) < 0.5 ? 'pile à l\'heure' : `${Math.abs(drift).toFixed(1)} min ${word}`)
+    + '</span>';
+});
+
+render();
+setInterval(render, 1000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+/* --- Thème du talk : Langages de programmation à l'ère de l'IA générative --- */
+
+:root {
+  --accent: #ffc857;        /* jaune doré : chiffres, emphase */
+  --accent2: #6ec1e4;       /* bleu clair : liens, code */
+  --ok: #7ddf64;            /* vert : findings positifs */
+  --ko: #ff6b6b;            /* rouge : limites, fossé */
+  --card: rgba(255, 255, 255, 0.045);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --r-heading-font: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --r-main-font: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Fond général : dégradé sombre plutôt qu'un aplat */
+.reveal-viewport {
+  background: radial-gradient(130% 100% at 15% 0%, #1b2030 0%, #14161d 55%, #0e1015 100%);
+}
+
+.reveal { font-size: 34px; }
+
+/* ---- Titres ---- */
+.reveal h1, .reveal h2, .reveal h3 {
+  font-family: var(--r-heading-font);
+  font-weight: 800;
+  text-transform: none;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.reveal h1 { font-size: 1.9em; }
+.reveal h2 { font-size: 1.4em; margin-bottom: 0.7em; }
+.reveal h3 { font-size: 1.05em; color: var(--accent); }
+
+/* Barre d'accent sous les titres de slide */
+.reveal section h2::after {
+  content: "";
+  display: block;
+  width: 1.9em;
+  height: 5px;
+  border-radius: 3px;
+  margin: 0.28em auto 0;
+  background: linear-gradient(90deg, var(--accent), #ff9f1c);
+}
+
+.reveal a { color: var(--accent2); text-decoration: none; border-bottom: 1px dotted var(--accent2); }
+.reveal strong, .reveal b { color: #ffffff; }
+
+/* ---- Code ---- */
+.reveal code { color: var(--accent2); font-size: 0.92em; }
+.reveal pre {
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.45);
+  width: 100%;
+  background: #14161f;
+  border: 1px solid #2a2d3a;
+  border-radius: 10px;
+}
+.reveal pre code { max-height: 520px; padding: 0.8em; background: transparent; }
+
+.reveal ul, .reveal ol { display: block; margin-left: 1em; }
+.reveal li { margin: 0.4em 0; }
+.reveal li::marker { color: var(--accent); }
+
+/* ---- Citations ---- */
+.reveal blockquote {
+  font-style: italic;
+  border: 1px solid var(--card-border);
+  border-left: 6px solid var(--accent);
+  background: var(--card);
+  border-radius: 0 12px 12px 0;
+  padding: 0.7em 1.1em;
+  width: 92%;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.35);
+}
+
+/* ---- Médias ---- */
+.reveal img, .reveal video {
+  max-height: 580px;
+  border-radius: 12px;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.55);
+}
+.reveal section img { border: none; background: none; }
+/* Les schémas SVG et images transparentes : ni carte ni ombre */
+.reveal img[src$=".svg"], .reveal img.plain {
+  box-shadow: none;
+  border-radius: 0;
+}
+.reveal video { background: #000; }
+
+/* Rendu rétro assumé pour les captures pixelisées (Doom COBOL…) */
+.reveal img.pixel { image-rendering: pixelated; width: 100%; }
+
+/* ---- Gros chiffre central ---- */
+.big {
+  font-size: 2.7em;
+  font-weight: 800;
+  line-height: 1.12;
+  display: block;
+  margin: 0.22em 0;
+  background: linear-gradient(100deg, #ffd97a 10%, #ff9f1c 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.big small {
+  font-size: 0.34em;
+  font-weight: 500;
+  display: block;
+  background: none;
+  -webkit-text-fill-color: #e8e8ee;
+}
+
+/* ---- Colonnes ---- */
+.cols { display: flex; gap: 1.2em; align-items: center; justify-content: center; }
+.cols > div { flex: 1; min-width: 0; }
+.cols img { width: 100%; object-fit: contain; }
+
+/* ---- Positif / négatif ---- */
+.reveal .ok { color: var(--ok); }
+.reveal .ko { color: var(--ko); }
+.reveal li.ok::marker { content: "✓ "; }
+.reveal li.ko::marker { content: "✗ "; }
+
+/* ---- Cartouche "bilan / key findings" ---- */
+.findings {
+  text-align: left;
+  font-size: 0.85em;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 0.9em 1.3em;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.4);
+}
+.findings h3 { margin: 0 0 0.45em; }
+.findings h3::after {
+  content: "";
+  display: block;
+  width: 1.9em; height: 4px; border-radius: 3px;
+  margin-top: 0.22em;
+  background: linear-gradient(90deg, var(--accent), #ff9f1c);
+}
+
+/* ---- Slides de section ---- */
+.section-slide h1 {
+  font-size: 2.5em;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9), 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+.section-slide h2 {
+  font-size: 1.15em;
+  font-weight: 600;
+  color: #e9e9f0;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.9);
+}
+.section-slide h2::after { display: none; }
+.section-slide p { color: #d8d8e2; text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9); }
+
+/* ---- Petits caractères ---- */
+.reveal .src {
+  font-size: 0.45em; color: #8a8fa0;
+  position: absolute; bottom: -1.2em; left: 0; right: 0; text-align: center;
+}
+.reveal .smaller { font-size: 0.75em; }
+.reveal .smallest { font-size: 0.6em; color: #a7abbb; }
+
+/* ---- Tableaux ---- */
+.reveal table {
+  font-size: 0.7em;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.4);
+}
+.reveal table th {
+  color: var(--accent);
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.05);
+}
+.reveal table td, .reveal table th {
+  padding: 0.38em 0.75em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.reveal table tr:last-child td { border-bottom: none; }
+.reveal table tbody tr:nth-child(even) { background: rgba(255, 255, 255, 0.025); }
+
+/* ---- Bande M&M's très haute : défilement dans un cadre ---- */
+.tallstrip {
+  height: 560px; overflow-y: scroll; width: 240px; margin: 0 auto;
+  border: 2px solid #3a3d4a; border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.55);
+}
+.tallstrip img { width: 100%; max-height: none; border-radius: 0; box-shadow: none; }
+
+/* ---- Badge thématique (fil rouge : 🃏 triche, 💸 coûts) ---- */
+.reveal .badge {
+  position: absolute;
+  top: -0.75em;
+  right: -0.2em;
+  font-size: 3em;
+  line-height: 1;
+  background: var(--card);
+  border: 4px solid var(--accent);
+  border-radius: 20px;
+  padding: 0.13em 0.24em;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.65);
+  transform: rotate(9deg);
+  z-index: 5;
+}
+
+/* ---- Bandeau de logos institutionnels ---- */
+.logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.8em;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 0.45em 1.2em;
+  width: fit-content;
+  margin: 0.9em auto 0;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.45);
+}
+.logos img {
+  height: 58px;
+  width: auto;
+  max-height: 58px;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+}
+
+/* ---- Habillage reveal ---- */
+.reveal .progress { color: var(--accent); height: 4px; }
+.reveal .controls { color: var(--accent); }
+.reveal .slide-number {
+  background: transparent; color: #8a8fa0; font-size: 16px;
+  font-family: var(--r-main-font);
+}
+
+/* ---- Résumé officiel (slide 2, non comptée dans la numérotation) ---- */
+.reveal .abstract {
+  text-align: left;
+  font-size: 0.64em;
+  line-height: 1.4;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 0.9em 1.3em;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.4);
+}
+.reveal .abstract p { margin: 0 0 0.6em; }
+.reveal .abstract p:last-child { margin-bottom: 0; }

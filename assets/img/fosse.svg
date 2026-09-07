@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 520" font-family="Avenir Next, Helvetica Neue, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="rock" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a3f52"/>
+      <stop offset="1" stop-color="#23273a"/>
+    </linearGradient>
+    <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff6b6b"/>
+    </marker>
+  </defs>
+
+  <!-- falaise gauche -->
+  <polygon points="0,190 235,190 250,240 230,300 245,370 225,440 235,520 0,520" fill="url(#rock)" stroke="#4a5068" stroke-width="2"/>
+  <!-- falaise droite -->
+  <polygon points="660,150 425,150 408,220 430,290 412,360 432,430 420,520 660,520" fill="url(#rock)" stroke="#4a5068" stroke-width="2"/>
+
+  <!-- étiquettes des deux bords -->
+  <text x="115" y="140" text-anchor="middle" fill="#ffc857" font-size="24" font-weight="800">La démo ✨</text>
+  <text x="115" y="168" text-anchor="middle" fill="#cccccc" font-size="16" font-style="italic">un soir, ça marche</text>
+  <text x="542" y="100" text-anchor="middle" fill="#7ddf64" font-size="24" font-weight="800">Le système fiable</text>
+  <text x="542" y="128" text-anchor="middle" fill="#cccccc" font-size="16" font-style="italic">tous les jours, c'est vrai</text>
+
+  <!-- drapeaux -->
+  <line x1="115" y1="150" x2="115" y2="190" stroke="#ffc857" stroke-width="3"/>
+  <line x1="542" y1="110" x2="542" y2="150" stroke="#7ddf64" stroke-width="3"/>
+
+  <!-- le saut raté -->
+  <path d="M 190 175 Q 330 60 470 135" fill="none" stroke="#ff6b6b" stroke-width="3" stroke-dasharray="8 7" marker-end="url(#fa)"/>
+  <text x="330" y="70" text-anchor="middle" fill="#ff6b6b" font-size="26" font-weight="800">?</text>
+
+  <!-- le fossé -->
+  <text x="330" y="270" text-anchor="middle" fill="#ff6b6b" font-size="27" font-weight="800">LE FOSSÉ</text>
+  <line x1="330" y1="290" x2="330" y2="480" stroke="#666d85" stroke-width="2" stroke-dasharray="5 6"/>
+  <text x="330" y="330" text-anchor="middle" fill="#dddddd" font-size="17">technicités</text>
+  <text x="330" y="385" text-anchor="middle" fill="#dddddd" font-size="17">connaissance du domaine</text>
+  <text x="330" y="440" text-anchor="middle" fill="#dddddd" font-size="17">maîtrise des langages</text>
+</svg>
