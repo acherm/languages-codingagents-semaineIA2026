@@ -123,7 +123,10 @@ La version longue (`long.html`) suit la même structure avec les slides de déta
   paragraphe « COBPACK C-first vs COBOL-first » (RQ1, 1 123 LoC de C) et section « evasion »
 - https://github.com/acherm/agentic-arnoldc (triple interpréteur ArnoldC → MnM → Brainfuck)
 - « ChatGPT rêve-t-il de cavaliers électriques ? » — Monsieur Phi, https://www.youtube.com/watch?v=6D1XIbkm4JE (mentionnée slide 21)
-- Google Slides « Who Codes When AI Can Generate Code? » (contextes SE, SOTELO 2025)
+- « Who Codes When AI Can Generate Code? Impacts of Generative AI on Professional Developers, End Users,
+  and Researchers », exposé de Mathieu Acher au séminaire SOTELO « De l'impact de l'IA-générative sur le
+  génie logiciel », 4 juin 2025 — vidéo : https://www.youtube.com/watch?v=Aj5arTQzMQ4&t=822s
+  (repris slide « Et il n'y a pas UN contexte, mais mille » et dans les Références)
 
 ## À vérifier / personnaliser avant le jour J
 
