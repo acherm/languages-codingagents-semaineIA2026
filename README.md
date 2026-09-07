@@ -2,8 +2,8 @@
 
 Talk de Mathieu Acher (INSA Rennes), slides reveal.js en Markdown.
 
-**🌐 En ligne (auto-contenu, vidéos comprises) : https://acherm.github.io/languages-codingagents-semaineIA2026/**
-(version longue : https://acherm.github.io/languages-codingagents-semaineIA2026/long.html)
+**🌐 En ligne (auto-contenu, vidéos comprises) : https://blog.mathieuacher.com/languages-codingagents-semaineIA2026/**
+(version longue : https://blog.mathieuacher.com/languages-codingagents-semaineIA2026/long.html)
 
 Vendredi 4 septembre 2026 · Semaine de l'IA · Université de Rennes ·
 https://intelligence-artificielle.univ-rennes.fr/semaine-ia-2026
