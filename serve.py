@@ -78,5 +78,5 @@ class RangeHandler(SimpleHTTPRequestHandler):
 if __name__ == "__main__":
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
     handler = partial(RangeHandler, directory=os.path.dirname(os.path.abspath(__file__)))
-    print(f"Slides : http://localhost:{port}  ·  version longue : http://localhost:{port}/long.html")
+    print(f"Slides : http://localhost:{port}  ·  version longue : http://localhost:{port}/long.html  ·  English : http://localhost:{port}/en.html")
     ThreadingHTTPServer(("", port), handler).serve_forever()

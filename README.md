@@ -3,7 +3,8 @@
 Talk de Mathieu Acher (INSA Rennes), slides reveal.js en Markdown.
 
 **🌐 En ligne (auto-contenu, vidéos comprises) : https://blog.mathieuacher.com/languages-codingagents-semaineIA2026/**
-(version longue : https://blog.mathieuacher.com/languages-codingagents-semaineIA2026/long.html)
+(version longue : https://blog.mathieuacher.com/languages-codingagents-semaineIA2026/long.html ·
+**English version**: https://blog.mathieuacher.com/languages-codingagents-semaineIA2026/en.html)
 
 **▶ Vidéo de l'exposé : https://www.youtube.com/watch?v=Aj5arTQzMQ4&t=822s**
 
@@ -34,7 +35,7 @@ devenir au contraire encore plus importants pour préciser, contrôler et compre
 
 Format cible : **60 min d'exposé + 30 min de questions**, ~230 étudiants (cœur IA ou coloration IA), le matin.
 
-**Deux versions** :
+**Trois versions** :
 
 - **Version courte (par défaut)** : `index.html` → `slides.md` — **80 slides d'exposé (~57 min)**
   suivies, après la slide Références, d'une section **Backup de 36 slides** (rien n'est perdu :
@@ -42,8 +43,11 @@ Format cible : **60 min d'exposé + 30 min de questions**, ~230 étudiants (cœu
   à dégainer pendant les 30 min de discussion (touche `O` pour naviguer)
 - **Version longue** : `long.html` → `slides-long.md` — **114 slides, ~81 min**,
   pour un créneau d'1h30 (les slides de backup y sont dans le fil principal)
+- **Version anglaise** : `en.html` → `slides-en.md` — traduction slide par slide de la version courte
+  (même structure, mêmes médias, notes traduites ; les prompts dictés en français sont conservés avec
+  une glose en anglais)
 
-Toute retouche de fond gagne à être faite dans les deux fichiers.
+Toute retouche de fond gagne à être faite dans les trois fichiers (`slides.md`, `slides-long.md`, `slides-en.md`).
 
 Le résumé ci-dessus est la slide 2 des deux versions ; elle est marquée `data-visibility="uncounted"`
 pour ne pas décaler la numérotation utilisée dans `TIMELINE.md`, `chrono.html` et ce README.
@@ -55,6 +59,7 @@ cd PLs-AI-talk
 python3 serve.py            # port 8000 par défaut
 # version courte : http://localhost:8000
 # version longue : http://localhost:8000/long.html
+# version anglaise : http://localhost:8000/en.html
 ```
 
 `serve.py` gère les requêtes « Range » (indispensables pour lire/rembobiner les vidéos —
